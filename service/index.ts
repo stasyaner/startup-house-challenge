@@ -1,6 +1,8 @@
 import { apiEndpointConfig } from "../config/api";
 import {
     Company,
+    CompanyDetails,
+    CompanyDetailsResponseBase,
     SearchCompanyResponse,
     SearchCompanyResponseBase,
 } from "./types";
@@ -31,13 +33,44 @@ export async function searchCompanyService(
         return null;
     }
 
+    // We've checked it's not falsy above.
     const resultFormatted = (
-        // We've checked it's not falsy above.
         result.bestMatches as SearchCompanyResponseBase[]
     ).map<Company>((item) => ({
         symbol: item["1. symbol"],
         name: item["2. name"],
     }));
+
+    return resultFormatted;
+}
+
+export async function companyDetailsService(
+    symbol: string
+): Promise<CompanyDetails | null> {
+    const url = apiEndpointConfig.getCompanyDetailsEndpoint(symbol);
+    const result = await fetchApi<CompanyDetailsResponseBase>(url);
+
+    if (!result) {
+        console.error(UNEXPECTED_ERROR);
+        return null;
+    }
+
+    if (
+        !result.Name ||
+        !result.Address ||
+        !result.MarketCapitalization ||
+        !result.Description
+    ) {
+        console.error(INSUFFICIENT_RETURN_ERROR);
+        return null;
+    }
+
+    const resultFormatted: CompanyDetails = {
+        name: result.Name,
+        address: result.Address,
+        capitalization: parseInt(result.MarketCapitalization, 10),
+        description: result.Description,
+    };
 
     return resultFormatted;
 }

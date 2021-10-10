@@ -22,9 +22,12 @@ const BASE_URL = IS_PROD ? BASE_URL_PROD : BASE_URL_DEV;
 
 export type ApiEndpointConfig = {
     getSearchCompanyEndpoint: (searchString: string) => string;
+    getCompanyDetailsEndpoint: (symbol: string) => string;
 };
 
 export const apiEndpointConfig: ApiEndpointConfig = {
     getSearchCompanyEndpoint: (searchString) =>
         `${BASE_URL}&function=SYMBOL_SEARCH&keywords=${searchString}`,
+    getCompanyDetailsEndpoint: (symbol) =>
+        `${BASE_URL}&function=OVERVIEW&symbol=${symbol}`,
 };
