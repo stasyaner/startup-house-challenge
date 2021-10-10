@@ -6,9 +6,14 @@ import { useRef } from "react";
 type SearchResultProps = {
     isLoading: boolean;
     items: Company[];
+    onAdd: (itemIndex: number) => void;
 };
 
-export const SearchResult = ({ isLoading, items }: SearchResultProps) => {
+export const SearchResult = ({
+    isLoading,
+    items,
+    onAdd,
+}: SearchResultProps) => {
     if (!items.length) {
         return null;
     }
@@ -19,7 +24,7 @@ export const SearchResult = ({ isLoading, items }: SearchResultProps) => {
             {/* Using Spin here because List.isLoading is adding some top margin. */}
             <Spin spinning={isLoading}>
                 <List bordered size="small">
-                    {items.map((item) => {
+                    {items.map((item, itemIndex) => {
                         const text = `${item.symbol} - ${item.name}`;
 
                         return (
@@ -33,7 +38,10 @@ export const SearchResult = ({ isLoading, items }: SearchResultProps) => {
                                 <Button
                                     type="link"
                                     size="small"
-                                    style={{ width: 30 }}
+                                    style={{ marginLeft: 20 }}
+                                    onClick={() => {
+                                        onAdd(itemIndex);
+                                    }}
                                 >
                                     <Tooltip
                                         mouseEnterDelay={0.5}
