@@ -1,6 +1,7 @@
-import { Typography, Spin } from "antd";
+import { Typography, Spin, Button } from "antd";
 import type { NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CompanyDetails } from "../../service/types";
 import { useRouter } from "next/dist/client/router";
@@ -80,6 +81,11 @@ const CompanyDetailsPage: NextPage = () => {
                         padding: 0 16px;
                     }
                 `}</style>
+                <Link href="/">
+                    <a className="ant-btn" style={{ marginBottom: 24 }}>
+                        Go Back
+                    </a>
+                </Link>
                 {content}
             </div>
         </>
