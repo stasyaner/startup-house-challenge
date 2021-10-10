@@ -7,10 +7,10 @@ import { Grid, Space } from "antd";
 
 type SearchProps = {
     portfolioList: Company[];
-    onAdd: (company: Company) => void;
+    onAddToPortfolio: (company: Company) => void;
 };
 
-const Search = ({ portfolioList, onAdd }: SearchProps) => {
+const Search = ({ portfolioList, onAddToPortfolio }: SearchProps) => {
     const breakpoints = Grid.useBreakpoint();
     const [isSearching, setIsSearching] = useState(false);
     const [companyList, setCompanyList] = useState<Company[]>([]);
@@ -38,11 +38,11 @@ const Search = ({ portfolioList, onAdd }: SearchProps) => {
         });
     };
 
-    const onAddInternal = (itemIndex: number) => {
+    const onAddToPortfolioInternal = (itemIndex: number) => {
         const newList = [...companyList];
         const [addedCompany] = newList.splice(itemIndex, 1);
         setCompanyList(newList);
-        onAdd(addedCompany);
+        onAddToPortfolio(addedCompany);
     };
 
     return (
@@ -59,7 +59,7 @@ const Search = ({ portfolioList, onAdd }: SearchProps) => {
             <SearchResult
                 isLoading={isSearching}
                 items={companyList}
-                onAdd={onAddInternal}
+                onAddToPortfolio={onAddToPortfolioInternal}
             />
         </Space>
     );

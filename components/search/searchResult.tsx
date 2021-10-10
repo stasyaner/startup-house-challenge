@@ -5,13 +5,13 @@ import { PlusCircleOutlined } from "@ant-design/icons";
 type SearchResultProps = {
     isLoading: boolean;
     items: Company[];
-    onAdd: (itemIndex: number) => void;
+    onAddToPortfolio: (itemIndex: number) => void;
 };
 
 export const SearchResult = ({
     isLoading,
     items,
-    onAdd,
+    onAddToPortfolio,
 }: SearchResultProps) => {
     const breakpoints = Grid.useBreakpoint();
 
@@ -42,7 +42,7 @@ export const SearchResult = ({
                                     type="link"
                                     size="small"
                                     onClick={() => {
-                                        onAdd(itemIndex);
+                                        onAddToPortfolio(itemIndex);
                                     }}
                                 >
                                     <Tooltip

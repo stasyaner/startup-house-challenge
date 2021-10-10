@@ -45,7 +45,7 @@ const DashBoardPage: NextPage = () => {
                     style={{ display: "flex", justifyContent: "center" }}
                 >
                     <Search
-                        onAdd={onAddToPortfolio}
+                        onAddToPortfolio={onAddToPortfolio}
                         portfolioList={portfolioList}
                     />
                 </Col>
