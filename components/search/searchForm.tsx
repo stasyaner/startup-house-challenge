@@ -16,7 +16,7 @@ export const SearchForm = ({ onStart, onFail, onSuccess }: SearchFormProps) => {
         if (!searchString) {
             onSuccess([]);
             return;
-        };
+        }
 
         setIsLoading(true);
         onStart();
@@ -29,11 +29,10 @@ export const SearchForm = ({ onStart, onFail, onSuccess }: SearchFormProps) => {
 
         onSuccess(searchResult);
         setIsLoading(false);
-    }
+    };
 
     return (
         <>
-            {/* <label>Company name</label> */}
             <Typography.Title level={5}>Company name</Typography.Title>
             <Input.Search
                 placeholder="Example: Apple"

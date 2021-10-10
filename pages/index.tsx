@@ -1,29 +1,34 @@
-import { Row, Col, Grid, Divider, Space, Layout, Typography } from "antd";
+import { Row, Col, Grid, Divider } from "antd";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useState } from "react";
-import { Header } from "../components/header";
 import { Portfolio } from "../components/portfolio";
 import { Search } from "../components/search";
 import { Company } from "../service/types";
-import { unstable_batchedUpdates as batchedUpdates } from "react-dom";
 
 const DashBoardPage: NextPage = () => {
     const breakpoints = Grid.useBreakpoint();
     const [portfolioList, setPortfolioList] = useState<Company[]>([]);
-    const [removedPortfolioItem, setRemovedPortfolioItem] = useState<Company>();
 
     const onAddToPortfolio = (company: Company) => {
-        setPortfolioList((currList) => [...currList, company]);
+        setPortfolioList((currList) => {
+            const isCompanyPresent = currList.find(
+                (item) => item.symbol === company.symbol
+            );
+            if (isCompanyPresent) return currList;
+
+            return [...currList, company];
+        });
     };
 
     const onRemoveFromPortfolio = (itemIndex: number) => {
         const newPortfolioList = [...portfolioList];
-        const [newRemovedPortfolioItem] = newPortfolioList.splice(itemIndex, 1);
+        newPortfolioList.splice(itemIndex, 1);
+        setPortfolioList((currList) => {
+            const newList = [...currList];
+            newList.splice(itemIndex, 1);
 
-        batchedUpdates(() => {
-            setPortfolioList(newPortfolioList);
-            setRemovedPortfolioItem(newRemovedPortfolioItem);
+            return newList;
         });
     };
 
@@ -34,10 +39,14 @@ const DashBoardPage: NextPage = () => {
             </Head>
 
             <Row style={{ padding: "0 16px" }}>
-                <Col xs={24} md={11}>
+                <Col
+                    xs={24}
+                    md={11}
+                    style={{ display: "flex", justifyContent: "center" }}
+                >
                     <Search
                         onAdd={onAddToPortfolio}
-                        removedItem={removedPortfolioItem}
+                        portfolioList={portfolioList}
                     />
                 </Col>
                 <Col xs={24} md={2} style={{ textAlign: "center" }}>

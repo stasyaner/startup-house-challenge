@@ -1,7 +1,6 @@
-import { Button, List, Spin, Tooltip, Typography, Row, Col } from "antd";
+import { Button, List, Spin, Tooltip, Typography, Grid } from "antd";
 import { Company } from "../../service/types";
 import { PlusCircleOutlined } from "@ant-design/icons";
-import { useRef } from "react";
 
 type SearchResultProps = {
     isLoading: boolean;
@@ -14,6 +13,8 @@ export const SearchResult = ({
     items,
     onAdd,
 }: SearchResultProps) => {
+    const breakpoints = Grid.useBreakpoint();
+
     if (!items.length) {
         return null;
     }
@@ -30,7 +31,9 @@ export const SearchResult = ({
                         return (
                             <List.Item key={item.symbol}>
                                 <Typography.Text
-                                    style={{ minWidth: 100 }}
+                                    style={{
+                                        width: breakpoints.xs ? 220 : 270,
+                                    }}
                                     ellipsis={{ tooltip: text }}
                                 >
                                     {text}
@@ -38,7 +41,6 @@ export const SearchResult = ({
                                 <Button
                                     type="link"
                                     size="small"
-                                    style={{ marginLeft: 20 }}
                                     onClick={() => {
                                         onAdd(itemIndex);
                                     }}

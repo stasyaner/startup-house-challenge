@@ -86,6 +86,7 @@ const CompanyDetailsPage: NextPage = () => {
                         Go Back
                     </a>
                 </Link>
+                <br />
                 {content}
             </div>
         </>
