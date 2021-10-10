@@ -10,10 +10,7 @@ type SearchProps = {
     onAdd: (company: Company) => void;
 };
 
-const Search = ({
-    portfolioList,
-    onAdd,
-}: SearchProps) => {
+const Search = ({ portfolioList, onAdd }: SearchProps) => {
     const breakpoints = Grid.useBreakpoint();
     const [isSearching, setIsSearching] = useState(false);
     const [companyList, setCompanyList] = useState<Company[]>([]);

@@ -20,7 +20,11 @@ const Portfolio = ({ list, onRemove }: PortfolioProps) => (
                     </Link>
                 )}
             />
-            <Table.Column title="Symbol" dataIndex="symbol" responsive={["lg"]}/>
+            <Table.Column
+                title="Symbol"
+                dataIndex="symbol"
+                responsive={["lg"]}
+            />
             <Table.Column<Company>
                 title="Actions"
                 key="actions"
